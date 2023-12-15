@@ -52,6 +52,23 @@ if (typeof randomValue === "string") {
 else {
     console.log("Error - A string was expected here."); //* Returns an error message.
 }
+// Unioin Type
+let multiType;
+multiType = 20; //* Valid
+multiType = true; //* Valid
+// multiType = "twenty";   //* if run it will be compiled as Invalid
+function add(x, y) {
+    if (typeof x === 'number' && typeof y === 'number') {
+        return x + y;
+    }
+    if (typeof x === 'string' && typeof y === 'string') {
+        return x.concat(y);
+    }
+    throw new Error('Parameters must be numbers or strings');
+}
+console.log(add('one', 'two')); //* Returns "onetwo"
+console.log(add(1, 2)); //* Returns 3
+console.log(add('one', 2)); //* Returns error (check browser devtool console)
 let myResult;
 myResult = "incomplete"; //* Valid
 myResult = "pass"; //* Valid
@@ -71,7 +88,9 @@ let inputPersonData = {
     section: 28,
     userID: generatedUserID()
 };
+// make a greeting function
 const greetingPerson = (User) => {
     return `hello ${User.name.toUpperCase()} you are on section ${User.section},so thats why you have id of ${User.userID}`;
 };
-console.log(greetingPerson(inputPersonData));
+//uses
+console.log(greetingPerson(inputPersonData)); // => hello JHON you are on section 28,so thats why you have id of SS-228

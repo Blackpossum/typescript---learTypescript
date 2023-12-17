@@ -145,6 +145,8 @@ class car {
   model: string;
   year: number;
 
+// constructor function to create the object in car class
+
   constructor(brand:string, model:string, year:number) {
     this.brand = brand;
     this.model = model;
@@ -157,5 +159,211 @@ class car {
 }
 
 // initiate object 
-const myCar = new car("toyota","camry",2022);
+const myCar = new car("toyota","camry",2022); // create car variable using new keyword 
 myCar.startEngine();
+// encapsulation concept 
+/* proces of promoting data abstraction and information hidding by controling access to 
+internal state of an object*/
+
+class bankAccount {
+  private balance : number;
+
+  constructor(initialBalance : number){
+    this.balance = initialBalance;
+  }
+  getBalance(){
+    return this.balance;
+  }
+  deposit(ammount:number){
+    this.balance += ammount;
+  }
+
+  widthdrawal(amount:number){
+    if(amount <= this.balance){
+      this.balance -= amount;
+    }
+    else{
+      console.log("insuficient fund");
+    }
+  }
+}
+
+// call the function
+
+const account = new bankAccount(50000);
+account.deposit(20000);
+// account.balance = 0; => this will return error because account balance canot be accessed publicly
+console.log(`you curently have : Rp.${account.getBalance()},000`);
+
+/* protected acces modifier*/
+
+class vehicle {
+    protected brand:string;
+
+
+  constructor(brand:string){
+    this.brand = brand;
+  }
+
+  protected honk(){
+    console.log(`${this.brand} is honking`)
+  }
+}
+
+class Car extends vehicle{
+  public start(){
+    console.log(`${this.brand} is start`)
+    this.honk() //accesing protected method
+  }
+}
+
+const ride = new Car("Mitsubishi");
+ride.start();
+// ride.brand = "hyundai"; // => Property 'brand' is protected and only accessible within class 'vehicle' and its subclasses.
+// ride.honk() // => Property 'honk' is protected and only accessible within class 'vehicle' and its subclasses
+
+
+/* Inheritance 
+concept in Object-Oriented Programming (OOP) 
+that allows you to create new classes (derived classes) based on existing classes (base or parent classes)
+*/
+// This promotes code reusability, modularity, and the ability to model real-world relationships.
+// we use existing class as an example, animal class in line : 165
+class animal {
+  protected name:string;
+
+  constructor(name:string){
+    this.name = name;
+  }
+  get _name(): string {
+    return this.name; // this one need to be set first in order to pass name in some function
+  }
+  makeSound(){
+    console.log("some generic sound");
+  }
+  public eat(){
+    console.log(`${this.name} eating`)
+  }
+  public sleep(){
+    console.log(`${this.name} is sleeping`)
+  }
+}
+
+
+class bird extends animal{
+  fly(){
+    console.log(`${this.name} is flying`)
+  }
+  makeSound(): void {
+    console.log(`${this._name} is chirping because all bird make chirp sound`)
+  } // overide the makesound() from parent existing method element for more specific result in child element
+}
+
+let sparrow = new bird("tweety");
+sparrow.makeSound();
+sparrow.fly();
+
+// another example
+// making class for extending  parent class
+
+class Dog extends animal{
+  public bark(){
+    console.log(`${this.name} is barking`)
+  }
+}
+let doggie = new Dog("jimbo");
+doggie.bark();
+doggie.sleep();
+doggie.eat();
+
+class Cat extends animal{
+  public meow(){
+    console.log(`${this.name} is meowing`)
+  }
+}
+let Kitten = new Cat("tom");
+Kitten.meow();
+Kitten.sleep();
+Kitten.eat();
+
+/* polymorphism 
+Polymorphism is a core principle of Object-Oriented Programming (OOP)
+that allows objects of different classes to be treated as instances of a common base class. */
+
+function animalInfo(Animal:animal){
+  console.log(`name :${Animal._name}`); // setup geter method on class animal first to acces name object ( see line: 239)
+  Animal.makeSound();
+}
+let Bulldog = new animal("cheetos");
+animalInfo(Bulldog);
+
+let parrot = new bird("lucky")
+animalInfo(parrot); //=>  works because bird extend animal
+
+//method overload
+class Callculator{
+  public add(a:number,b:number):number;
+  public add(a:string,b:string):string;
+  public add(a:any, b:any):any{
+    return a + b;
+  }
+}
+
+const callculator = new Callculator();
+const result1 = callculator.add(5,8);
+console.log(result1);
+const result2 = callculator.add("hello ", "world");
+console.log(result2);
+
+/*Abstraction class
+An abstract class is a class that cannot be instantiated directly and serves as a blueprint for other classes.
+It can contain both abstract and non-abstract methods, properties, and other members.
+Abstract classes provide a way to define common behavior and characteristics that derived classes can inherit and implement.*/
+
+abstract class shape {
+  abstract calculatedArea(): number;
+  display():void{
+    console.log("displaying shape")
+  }
+}
+
+class Circle extends shape{
+  radius : number;
+  constructor(radius:number){
+    super(); //Calls the constructor of the shape class
+    this.radius = radius;
+  }
+  calculatedArea(): number {
+    return Math.PI*this.radius*this.radius
+  }
+}
+
+/* interface
+An interface is a contract that defines a set of properties and method signatures.
+It establishes a contract between objects, specifying what properties and methods an object must have to satisfy the interface.
+Interfaces provide a way to define common behavior without prescribing the specific implementation.
+*/
+interface printAble{
+  print():void;
+}
+
+class Docoumented implements printAble{
+  print():void{
+    console.log("printing Document ....")
+  }
+}
+
+class Photo implements printAble{
+  print():void{
+    console.log("printing photo......")
+  }
+}
+
+const documentToPrint = new Docoumented();
+documentToPrint.print();
+
+const photograph = new Photo();
+photograph.print();
+
+
+

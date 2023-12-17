@@ -77,12 +77,12 @@ const greetingPerson = (User) => {
 };
 //uses
 console.log(greetingPerson(inputPersonData)); // => hello JHON you are on section 28,so thats why you have id of SS-228
-
 /* typescript OOP
 concept of OOP using typescript
 */
 // class and Object
 class car {
+    // constructor function to create the object in car class
     constructor(brand, model, year) {
         this.brand = brand;
         this.model = model;
@@ -93,5 +93,159 @@ class car {
     }
 }
 // initiate object 
-const myCar = new car("toyota", "camry", 2022);
+const myCar = new car("toyota", "camry", 2022); // create car variable using new keyword 
 myCar.startEngine();
+// encapsulation concept 
+/* proces of promoting data abstraction and information hidding by controling access to
+internal state of an object*/
+class bankAccount {
+    constructor(initialBalance) {
+        this.balance = initialBalance;
+    }
+    getBalance() {
+        return this.balance;
+    }
+    deposit(ammount) {
+        this.balance += ammount;
+    }
+    widthdrawal(amount) {
+        if (amount <= this.balance) {
+            this.balance -= amount;
+        }
+        else {
+            console.log("insuficient fund");
+        }
+    }
+}
+// call the function
+const account = new bankAccount(50000);
+account.deposit(20000);
+// account.balance = 0; => this will return error because account balance canot be accessed publicly
+console.log(`you curently have : Rp.${account.getBalance()},000`);
+/* protected acces modifier*/
+class vehicle {
+    constructor(brand) {
+        this.brand = brand;
+    }
+    honk() {
+        console.log(`${this.brand} is honking`);
+    }
+}
+class Car extends vehicle {
+    start() {
+        console.log(`${this.brand} is start`);
+        this.honk(); //accesing protected method
+    }
+}
+const ride = new Car("Mitsubishi");
+ride.start();
+// ride.brand = "hyundai"; // => Property 'brand' is protected and only accessible within class 'vehicle' and its subclasses.
+// ride.honk() // => Property 'honk' is protected and only accessible within class 'vehicle' and its subclasses
+/* Inheritance
+concept in Object-Oriented Programming (OOP)
+that allows you to create new classes (derived classes) based on existing classes (base or parent classes)
+*/
+// This promotes code reusability, modularity, and the ability to model real-world relationships.
+// we use existing class as an example, animal class in line : 165
+class animal {
+    constructor(name) {
+        this.name = name;
+    }
+    get _name() {
+        return this.name; // this one need to be set first in order to pass name in some function
+    }
+    makeSound() {
+        console.log("some generic sound");
+    }
+    eat() {
+        console.log(`${this.name} eating`);
+    }
+    sleep() {
+        console.log(`${this.name} is sleeping`);
+    }
+}
+class bird extends animal {
+    fly() {
+        console.log(`${this.name} is flying`);
+    }
+    makeSound() {
+        console.log(`${this._name} is chirping because all bird make chirp sound`);
+    } // overide the makesound() from parent existing method element for more specific result in child element
+}
+let sparrow = new bird("tweety");
+sparrow.makeSound();
+sparrow.fly();
+// another example
+// making class for extending  parent class
+class Dog extends animal {
+    bark() {
+        console.log(`${this.name} is barking`);
+    }
+}
+let doggie = new Dog("jimbo");
+doggie.bark();
+doggie.sleep();
+doggie.eat();
+class Cat extends animal {
+    meow() {
+        console.log(`${this.name} is meowing`);
+    }
+}
+let Kitten = new Cat("tom");
+Kitten.meow();
+Kitten.sleep();
+Kitten.eat();
+/* polymorphism
+Polymorphism is a core principle of Object-Oriented Programming (OOP)
+that allows objects of different classes to be treated as instances of a common base class. */
+function animalInfo(Animal) {
+    console.log(`name :${Animal._name}`); // setup geter method on class animal first to acces name object ( see line: 239)
+    Animal.makeSound();
+}
+let Bulldog = new animal("cheetos");
+animalInfo(Bulldog);
+let parrot = new bird("lucky");
+animalInfo(parrot); //=>  works because bird extend animal
+//method overload
+class Callculator {
+    add(a, b) {
+        return a + b;
+    }
+}
+const callculator = new Callculator();
+const result1 = callculator.add(5, 8);
+console.log(result1);
+const result2 = callculator.add("hello ", "world");
+console.log(result2);
+/*Abstraction class
+An abstract class is a class that cannot be instantiated directly and serves as a blueprint for other classes.
+It can contain both abstract and non-abstract methods, properties, and other members.
+Abstract classes provide a way to define common behavior and characteristics that derived classes can inherit and implement.*/
+class shape {
+    display() {
+        console.log("displaying shape");
+    }
+}
+class Circle extends shape {
+    constructor(radius) {
+        super(); //Calls the constructor of the shape class
+        this.radius = radius;
+    }
+    calculatedArea() {
+        return Math.PI * this.radius * this.radius;
+    }
+}
+class Docoumented {
+    print() {
+        console.log("printing Document ....");
+    }
+}
+class Photo {
+    print() {
+        console.log("printing photo......");
+    }
+}
+const documentToPrint = new Docoumented();
+documentToPrint.print();
+const photograph = new Photo();
+photograph.print();

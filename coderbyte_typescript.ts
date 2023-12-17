@@ -28,7 +28,6 @@
 // console.log(capitalizeLetter(inputWords));
 
 // soal sum of three
-// __define-ocg__
 function ThreeSum(arr: number[]): boolean {
   if (arr.length < 4) {
     return false;

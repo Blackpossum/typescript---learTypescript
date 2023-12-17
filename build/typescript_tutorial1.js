@@ -8,7 +8,7 @@ y = 9;
 let x = 6; //implicitly declare
 let z; // declaration without initializing it.
 z = 1;
-z = 'one';
+z = "one";
 // boolean promotives
 let flag;
 flag = true;
@@ -19,9 +19,9 @@ let m = 10;
 let o = 40;
 let big = 100n;
 //string type
-let word = 'hello World';
+let word = "hello World";
 let empty = " ";
-let myName = 'yosaphat';
+let myName = "yosaphat";
 let sentences = `my name is ${myName},
                 im new to typescript`;
 console.log(sentences);
@@ -35,7 +35,7 @@ var ContractStatus;
 let employeStatus = ContractStatus.Temp;
 console.log(employeStatus);
 console.log(ContractStatus[employeStatus]);
-// unknow data type 
+// unknow data type
 // let randomValue: unknown = 10;
 // randomValue = true;
 // randomValue = 'Mateo';
@@ -45,30 +45,13 @@ console.log(ContractStatus[employeStatus]);
 //type assertion
 let randomValue = 10;
 randomValue = true;
-randomValue = 'Mateo';
+randomValue = "Mateo";
 if (typeof randomValue === "string") {
     console.log(randomValue.toUpperCase()); //* Returns MATEO to the console.
 }
 else {
     console.log("Error - A string was expected here."); //* Returns an error message.
 }
-// Unioin Type
-let multiType;
-multiType = 20; //* Valid
-multiType = true; //* Valid
-// multiType = "twenty";   //* if run it will be compiled as Invalid
-function add(x, y) {
-    if (typeof x === 'number' && typeof y === 'number') {
-        return x + y;
-    }
-    if (typeof x === 'string' && typeof y === 'string') {
-        return x.concat(y);
-    }
-    throw new Error('Parameters must be numbers or strings');
-}
-console.log(add('one', 'two')); //* Returns "onetwo"
-console.log(add(1, 2)); //* Returns 3
-console.log(add('one', 2)); //* Returns error (check browser devtool console)
 let myResult;
 myResult = "incomplete"; //* Valid
 myResult = "pass"; //* Valid
@@ -82,11 +65,11 @@ const generatedUserID = () => {
     const userID = `${unicode}${unicode}-${Math.floor(Math.random() * 1000)}`;
     return userID;
 };
-// defined data 
+// defined data
 let inputPersonData = {
     name: "jhon",
     section: 28,
-    userID: generatedUserID()
+    userID: generatedUserID(),
 };
 // make a greeting function
 const greetingPerson = (User) => {
@@ -94,3 +77,21 @@ const greetingPerson = (User) => {
 };
 //uses
 console.log(greetingPerson(inputPersonData)); // => hello JHON you are on section 28,so thats why you have id of SS-228
+
+/* typescript OOP
+concept of OOP using typescript
+*/
+// class and Object
+class car {
+    constructor(brand, model, year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+    startEngine() {
+        console.log(`starting this ${this.brand} ${this.model}`);
+    }
+}
+// initiate object 
+const myCar = new car("toyota", "camry", 2022);
+myCar.startEngine();

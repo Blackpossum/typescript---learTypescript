@@ -367,3 +367,39 @@ photograph.print();
 
 
 
+// convert color 
+class Colorstack {
+  R:number;
+  G:number;
+  B:number;
+  A?: number;
+
+  constructor(R:number,G:number,B:number,A?:number){
+    this.R = R;
+    this.G = G;
+    this.B = B;
+    this.A = A;
+  }
+  makeRGBColor(){
+    console.log(`${this.R} ,${this.B} ,${this.G}`);
+  }
+  makeRGBAcolor(){
+    let defaultA =1.0; 
+    if(this.A === undefined){
+      console.log(`rgb(${this.R},${this.B},${this.G},${defaultA})`);
+    }else{
+      console.log(`rgba(${this.R},${this.B},${this.G},${this.A})`);
+    }
+  }
+  makeHexColor(){
+    return '#' + ((1 << 24)+(this.R << 16) + (this.G << 8) + this.B).toString(16).slice(1)
+  }
+}
+
+
+let firstColor = new Colorstack(189,204,200);
+let SecondColor = new Colorstack(150,40,80,0.5);
+console.log(firstColor.makeHexColor());
+console.log(SecondColor.makeHexColor());
+firstColor.makeRGBColor();
+SecondColor.makeRGBAcolor();
